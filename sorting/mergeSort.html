@@ -1,0 +1,24 @@
+<script type="text/javascript">
+Array.prototype.mergeSort=function(){
+	var merge=function(left,right){
+		var final=[];
+		while(left.length&&right.length){
+			final.push(left[0]<=right[0]?left.shift():right.shift());	//Array.shift()方法弹出数组第一个元素
+		}
+		//两个子数组，一个为空，一个不为空时，将不为空的子数组直接附加到结果数组上
+		return final.concat(left.concat(right));
+	}
+
+	//数组元素小于或等于1时直接返回
+	if(this.length<2)
+		return this;
+	
+	var mid=parseInt(this.length/2),
+		_left=this.slice(0,mid),	//Array.slice()方法返回截取的子数组，不包含上标元素
+		_right=this.slice(mid);	
+	return merge(_left.mergeSort(),_right.mergeSort());
+}
+
+var array=[2,1,6,3,88,45,67,34,101];
+document.write(array.mergeSort());
+</script>

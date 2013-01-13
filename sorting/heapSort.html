@@ -1,0 +1,58 @@
+<script type="text/javascript">
+Array.prototype.heapSort=function(){
+
+	var a=this,length=a.length;
+
+	//build array[0,n] in heap order;
+	function heapify(array){
+		for(var i=parseInt(length/2)-1;i>=0;i--){
+			sink(array,i,length);
+		}
+	}
+
+	//adjust heap
+	function sink(array,i,n){
+		var c=2*i+1;	//c=leftchild
+
+		while(i<parseInt(n/2)){
+			if(c+1<n&&array[c]<array[c+1])
+				c++;	//c=rightchild
+			if(array[i]>array[c])
+				break;
+			else{
+				//swape array[i,c]
+				array[i]^=array[c];
+				array[c]^=array[i];
+				array[i]^=array[c];
+
+				i=c;
+				c=2*i+1;
+			}
+		}
+		return;
+	}
+
+	//heap sort main function
+	//build init max heap
+	heapify(a);
+	for(var i=length-1;i>0;i--){
+		//place the max number at the last of array
+		a[0]^=a[i];
+		a[i]^=a[0];
+		a[0]^=a[i];
+
+		//since the a[length-1] is the max value, so the sorting array now is a[0,length-2] 
+		sink(a,0,i);
+	}
+}
+
+var arr=[]
+for(var i=0;i<5000;i++){
+	arr.push(Math.floor(Math.random()*10+1));
+}
+console.time("heapSort");
+arr.heapSort();
+console.timeEnd("heapSort");
+console.log(arr);
+
+</script>

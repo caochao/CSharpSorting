@@ -1,0 +1,29 @@
+<script type="text/javascript">
+Array.prototype.shellSort=function()
+{
+	var gap=0,len=this.length;
+	while(gap<=len)
+	{
+		gap=gap*3+1;
+	}
+	while(gap>0)
+	{
+		for(var i=gap;i<len;i++)
+		{
+				var temp=this[i];
+				var j=i;
+				while((j>gap-1)&&this[j-gap]>=temp)
+				{
+					this[j]=this[j-gap];
+					j-=gap;
+				}
+				this[j]=temp;
+		}
+		gap=(gap-1)/3;
+	}
+	
+}
+var arr=[4,1,2,19,5,2,88,72,21,100];
+arr.shellSort();
+document.write(arr);
+</script>

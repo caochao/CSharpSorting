@@ -1,0 +1,43 @@
+<script type="text/javascript">
+
+Array.prototype.quickSort=function(){ 
+
+	function partition(array,low,high){
+		var pivot=array[low];
+
+		while(low<high){
+			while(low<high&&array[high]>=pivot)
+				high--;
+			if (low<high)	//array[high]<pivot;
+				array[low++]=array[high];
+
+			while(low<high&&array[low]<=pivot)
+				low++;
+			if(low<high)	//array[low]>pivot
+				array[high--]=array[low];
+		}	//end while
+
+		array[low]=pivot;
+		return low;
+	}
+
+	function recQuickSort(array,low,high){
+		if(low<high){	//仅当区间长度大于1时才排序
+			var pivot_pos=partition(array,low,high);
+			recQuickSort(array,low,pivot_pos-1);
+			recQuickSort(array,pivot_pos+1,high);
+		}
+	}
+	recQuickSort(this,0,this.length-1);
+}
+
+var arr=[10,9,8,7,6,5,4,3,2,1,0];
+//for(var i=0;i<50000;i++){
+//	arr.push(Math.floor(Math.random()*100+1));	//0到100整数
+//}
+console.time("quickSort");
+arr.quickSort();
+console.timeEnd("quickSort");
+console.log(arr);
+
+</script>
